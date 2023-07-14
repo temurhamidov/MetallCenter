@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Products{% endblock %}
+{% block body %}
+ <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5 py-5">
+        <div class="container">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Product</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb text-uppercase">
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Product</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+<!-- Products  --->
+<!--Products with Category -->
+<div class="row container">
+    <div class="col-4">
+        <div class="dropdown container">
+            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
+            <div class="dropdown-menu fade-up m-0">
+                <a href="{% url 'mainapp:all-products' %}" class="dropdown-item">All Products</a>
+                {% for category in categories %}
+                <a href="{% url 'mainapp:products_category' category.slug %}" class="dropdown-item">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+            <i class="fas fa-search"></i>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="container intro">
+  <div class="bg-image h-100" style="background-color: #f5f7fa;">
+    <div class="mask d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body p-0">
+                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: auto">
+                  <table class="table table-striped mb-0">
+                    <thead style="background-color: #002d72;">
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Theory</th>
+                        <th scope="col">Manfacturer</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Icon</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in products %}
+                      <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.size }}</td>
+                        <td>{{ product.theory }}</td>
+                        <td>{{ product.manfacturer }}</td>
+                        <td>{{ product.unit }}</td>
+                        <td>${{ product.price_cash }}</td>
+                        <td>
+                            <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus-fill" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>
+                            </svg>
+                            </a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<nav class="container" aria-label="Page navigation example">
+        <ul class="pagination">
+        {% if products.has_previous %}
+            <li class="page-item "><a class="page-link text-bg-dark" href="?page={{ products.previous_page_number }}">Back</a></li>
+        {% endif %}
+
+        {% for i in nums  %}
+            <li class="page-item "><a class="page-link text-bg-dark" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+        {% endfor %}
+
+        {% if products.has_next %}
+            <li class="page-item"><a class="page-link text-bg-dark" href="?page={{ products.next_page_number }}">Next</a></li>
+        {% endif %}
+        </ul>
+    </nav>
+<!--Products with Category end -->
+<!-- Products end  --->
+{% endblock body %}
