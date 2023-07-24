@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.views import View
 from .models import Contact, Product
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView, CreateView, TemplateView
-
+from django.views.decorators.http import require_POST
 
 
 
@@ -28,6 +28,13 @@ class TeamView(TemplateView):
     template_name = 'mainapp/team.html'
 
 
+class TestimonialView(TemplateView):
+    template_name = 'mainapp/testimonial.html'
+
+
+class CartView(TemplateView):
+    template_name = 'mainapp/cart.html'
+
 
 class ContactView(View):
     def get(self, request):
@@ -44,7 +51,7 @@ class ContactView(View):
 
 
 class ProductView(TemplateView):
-    template_name = 'mainapp/product.html'
+    template_name = 'mainapp/category.html'
 
 
 class AllProductsView(View):
@@ -77,6 +84,8 @@ class ProductListWithCategory(View):
             'nums': nums,
         }
         return render(request, 'mainapp/products.html', context)
+
+
 
 
 
