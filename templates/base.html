@@ -45,7 +45,7 @@
 
 
     <!-- Topbar Start -->
-    <div class="container-fluid bg-light d-none d-lg-block">
+        <div class="container-fluid bg-light d-none d-lg-block">
         <div class="row align-items-center top-bar">
             <div class="col-lg-3 col-md-12 text-center text-lg-start">
                 <a href="" class="navbar-brand m-0 p-0">
@@ -62,6 +62,7 @@
                     <p class="m-0">info@metal.uz</p>
                 </div>
                 <div class="h-100 d-inline-flex align-items-center">
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href="{% url 'mainapp:cart' %}"><i class="bi bi-cart4"></i></a>
                     <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-facebook-f"></i></a>
                     <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-sm-square bg-white text-primary me-1" href=""><i class="fab fa-linkedin-in"></i></a>
@@ -151,8 +152,12 @@
     <script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
     <script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
 
+
+
     <!-- Template Javascript -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+
 </body>
 
 </html>
