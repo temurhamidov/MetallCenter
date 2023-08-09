@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Products{% endblock %}
 {% block body %}
+
  <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 py-5">
         <div class="container">
@@ -40,6 +41,8 @@
         </div>
     </div>
 </div>
+   <div id="alerts"></div>
+
 <div class="container intro">
   <div class="bg-image h-100" style="background-color: #f5f7fa;">
     <div class="mask d-flex align-items-center h-100">
@@ -50,7 +53,7 @@
               <div class="card-body p-0">
                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: auto">
                   <table class="table table-striped mb-0">
-                    <thead style="background-color: #002d72;">
+                    <thead style="background-color: #002d72;" class="productcont">
                       <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Size</th>
@@ -61,10 +64,9 @@
                         <th scope="col">Icon</th>
                       </tr>
                     </thead>
-                      <div id="alerts"></div>
-                    <tbody class="productcont">
+                    <tbody class="product">
                     {% for product in products %}
-                      <tr class="product">
+                      <tr>
                         <td class="productname">{{ product.name }}</td>
                         <td>{{ product.size }}</td>
                         <td>{{ product.theory }}</td>
@@ -72,7 +74,7 @@
                         <td>{{ product.unit }}</td>
                         <td class="price">{{ product.price_cash }}</td>
                         <td>
-                            <button class="addtocart">Add</button>
+                            <a class="addtocart"><i class="bi bi-cart-plus-fill"></i></a>
                         </td>
                       </tr>
                     {% endfor %}
@@ -102,64 +104,49 @@
         {% endif %}
         </ul>
     </nav>
+<div class="cart-container">
+  <section class="h-100" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+              </div>
+
+          <div class="card rounded-3 mb-4">
+              <div class="card-body p-4">
+                  <div id="carttable" class="row d-flex justify-content-between align-items-center">
+
+                  </div>
+              </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <button id="emptycart" type="button" class="btn btn-danger btn-block btn-lg">Empty Cart</button>
+              <a href="{% url 'mainapp:product-order' %}" type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</a>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+  </section>
+  <hr>
+  <table id="carttotals">
+    <tr>
+      <td><strong>Items</strong></td>
+      <td><strong>Total</strong></td>
+    </tr>
+    <tr>
+      <td>x <span id="itemsquantity">0</span></td>
+
+      <td>$<span id="total">0</span></td>
+    </tr></table>
+</div>
 
 <!--Products with Category end -->
 <!-- Products end  --->
-
-
-<!--<main>-->
-<!--     &lt;!&ndash; Start DEMO HTML (Use the following code into your project)&ndash;&gt;-->
-<!--&lt;!&ndash;    <div class="container">&ndash;&gt;-->
-<!--&lt;!&ndash;   <h1>Simple JavaScript Shopping Cart</h1>&ndash;&gt;-->
-<!--&lt;!&ndash;   <p>Simplified 'add to cart' functionality. Uses Javascript&ndash;&gt;-->
-<!--&lt;!&ndash;   and WebStorage API/Cookies to remember cart data converted to JSON format.</p>&ndash;&gt;-->
-<!--&lt;!&ndash;   <p>Click 'Empty Cart' button to remove session cookies from browser.</p>&ndash;&gt;-->
-<!--   <div id="alerts"></div>-->
-<!--<div class="productcont">-->
-<!--    {% for product in products %}-->
-<!--        <div class="product">-->
-<!--            <h3 class="productname">{{ product.name }}</h3>-->
-<!--            <p>Product description excerpt...</p>-->
-<!--            <p class="price">${{ product.price_cash }}</p>-->
-<!--            <button class="addtocart">Add To Cart</button>-->
-<!--        </div>-->
-<!--        {% endfor %}-->
-<!--</div>-->
-<!--</main>-->
-<!--<div class="cart-container">-->
-<!--  <h2>Cart</h2>-->
-<!--  <table>-->
-<!--    <thead>-->
-<!--      <tr>-->
-<!--      <th><strong>Product</strong></th>-->
-<!--      <th><strong>Price</strong></th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody id="carttable">-->
-<!--    </tbody>-->
-<!--  </table>-->
-<!--  <hr>-->
-<!--  <table id="carttotals">-->
-<!--    <tr>-->
-<!--      <td><strong>Items</strong></td>-->
-<!--      <td><strong>Total</strong></td>-->
-<!--    </tr>-->
-<!--    <tr>-->
-<!--      <td>x <span id="itemsquantity">0</span></td>-->
-
-<!--      <td>$<span id="total">0</span></td>-->
-<!--    </tr>-->
-<!--  </table>-->
-
-
-<!--  <div class="cart-buttons">-->
-<!--    <button id="emptycart">Empty Cart</button>-->
-<!--    <button id="checkout">Checkout</button>-->
-<!--  </div>-->
-<!--</div>-->
-<!-- partial -->
-
-     <!-- END EDMO HTML (Happy Coding!)-->
 
 {% endblock body %}
 
