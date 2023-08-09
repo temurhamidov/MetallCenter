@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Products{% endblock %}
+{% block body %}
+
+ <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5 py-5">
+        <div class="container">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">Product</h1>
+            <nav aria-label="breadcrumb animated slideInDown">
+                <ol class="breadcrumb text-uppercase">
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                    <li class="breadcrumb-item text-white active" aria-current="page">Product</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!-- Page Header End -->
+<!-- Products  --->
+<!--Products with Category -->
+<div class="row container">
+    <div class="col-4">
+        <div class="dropdown container">
+            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">Categories</a>
+            <div class="dropdown-menu fade-up m-0">
+                <a href="{% url 'mainapp:all-products' %}" class="dropdown-item">All Products</a>
+                {% for category in categories %}
+                <a href="{% url 'mainapp:products_category' category.slug %}" class="dropdown-item">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+            <i class="fas fa-search"></i>
+            </span>
+        </div>
+    </div>
+</div>
+   <div id="alerts"></div>
+
+<div class="container intro">
+  <div class="bg-image h-100" style="background-color: #f5f7fa;">
+    <div class="mask d-flex align-items-center h-100">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body p-0">
+                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true" style="position: relative; height: auto">
+                  <table class="table table-striped mb-0">
+                    <thead style="background-color: #002d72;" class="productcont">
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Theory</th>
+                        <th scope="col">Manfacturer</th>
+                        <th scope="col">Unit</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Icon</th>
+                      </tr>
+                    </thead>
+                    <tbody class="product">
+                    {% for product in products %}
+                      <tr>
+                        <td class="productname">{{ product.name }}</td>
+                        <td>{{ product.size }}</td>
+                        <td>{{ product.theory }}</td>
+                        <td>{{ product.manfacturer }}</td>
+                        <td>{{ product.unit }}</td>
+                        <td class="price">{{ product.price_cash }}</td>
+                        <td>
+                            <a class="addtocart"><i class="bi bi-cart-plus-fill"></i></a>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<nav class="container" aria-label="Page navigation example">
+        <ul class="pagination">
+        {% if products.has_previous %}
+            <li class="page-item "><a class="page-link text-bg-dark" href="?page={{ products.previous_page_number }}">Back</a></li>
+        {% endif %}
+
+        {% for i in nums  %}
+            <li class="page-item "><a class="page-link text-bg-dark" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+        {% endfor %}
+
+        {% if products.has_next %}
+            <li class="page-item"><a class="page-link text-bg-dark" href="?page={{ products.next_page_number }}">Next</a></li>
+        {% endif %}
+        </ul>
+    </nav>
+<div class="cart-container">
+  <section class="h-100" style="background-color: #eee;">
+  <div class="container h-100 py-5">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-10">
+
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+              </div>
+
+          <div class="card rounded-3 mb-4">
+              <div class="card-body p-4">
+                  <div id="carttable" class="row d-flex justify-content-between align-items-center">
+
+                  </div>
+              </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <button id="emptycart" type="button" class="btn btn-danger btn-block btn-lg">Empty Cart</button>
+              <a href="{% url 'mainapp:product-order' %}" type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</a>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </div>
+  </section>
+  <hr>
+  <table id="carttotals">
+    <tr>
+      <td><strong>Items</strong></td>
+      <td><strong>Total</strong></td>
+    </tr>
+    <tr>
+      <td>x <span id="itemsquantity">0</span></td>
+
+      <td>$<span id="total">0</span></td>
+    </tr></table>
+</div>
+
+<!--Products with Category end -->
+<!-- Products end  --->
+
+{% endblock body %}
+
+
