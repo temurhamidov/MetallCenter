@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'mainapp.context_processors.category_list',
                 'mainapp.context_processors.team_list',
+                'mainapp.context_processors.service_list',
             ],
         },
     },

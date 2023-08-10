@@ -58,4 +58,37 @@ class Contact(models.Model):
         return self.name
 
 
+class Service(BaseModel):
+    description = models.TextField()
+    quality = models.CharField(max_length=50)
+    extra_idea = models.TextField()
+    support_time = models.TextField()
+
+
+class ServiceBooking(models.Model):
+    name = models.CharField(max_length=100)
+    phone = models.IntegerField(max_length=15)
+    service = models.CharField(max_length=100, null=True)
+    date = models.CharField(max_length=10)
+    created = models.DateTimeField(auto_now_add=True)
+    request = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class ProductOrder(models.Model):
+    name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=15)
+    telegram = models.CharField(max_length=100)
+    created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
+
+
+
+
 

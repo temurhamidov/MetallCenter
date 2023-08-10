@@ -2,27 +2,59 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib import messages
 from django.views import View
-from .models import Contact, Product
+from .models import Contact, Product, ServiceBooking, ProductOrder
 from django.views.generic import DetailView, ListView, UpdateView, DeleteView, CreateView, TemplateView
 from django.views.decorators.http import require_POST
 
 
 
-class HomeView(TemplateView):
-    template_name = 'mainapp/home.html'
+class HomeView(View):
+    def get(self, request):
+        return render(request, 'mainapp/home.html')
+
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        print(name)
+        phone = request.POST.get('phone')
+        date = request.POST.get('date')
+        service = request.POST.get('service')
+        request = request.POST.get('request')
+        ServiceBooking(name=name, phone=phone, date=date, service=service, request=request).save()
+        return redirect('mainapp:home')
 
 
 class AboutView(TemplateView):
     template_name = 'mainapp/about.html'
 
 
-class ServiceView(TemplateView):
-    template_name = 'mainapp/service.html'
+class ServiceView(View):
+    def get(self, request):
+        return render(request, 'mainapp/service.html')
+
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        print(name)
+        phone = request.POST.get('phone')
+        date = request.POST.get('date')
+        service = request.POST.get('service')
+        request = request.POST.get('request')
+        ServiceBooking(name=name, phone=phone, date=date, service=service, request=request).save()
+        return redirect('mainapp:service')
 
 
-class BookingView(TemplateView):
-    template_name = 'mainapp/booking.html'
+class BookingView(View):
+    def get(self, request):
+        return render(request, 'mainapp/booking.html')
 
+    def post(self, request, *args, **kwargs):
+        name = request.POST.get('name')
+        print(name)
+        phone = request.POST.get('phone')
+        date = request.POST.get('date')
+        service = request.POST.get('service')
+        request = request.POST.get('request')
+        ServiceBooking(name=name, phone=phone, date=date, service=service, request=request).save()
+        return redirect('mainapp:booking')
 
 class TeamView(TemplateView):
     template_name = 'mainapp/team.html'
@@ -84,6 +116,19 @@ class ProductListWithCategory(View):
             'nums': nums,
         }
         return render(request, 'mainapp/products.html', context)
+
+
+class ProductOrder(View):
+    def get(self, request):
+        return render(request, 'mainapp/ordering.html')
+
+    def post(self, request):
+        name = request.POST.get('name')
+        telegram = request.POST.get('telegram')
+        phone = request.POST.get('phone')
+        aaa = ProductOrder(name=name, telegram=telegram, phone=phone)
+        aaa.save()
+        return redirect('mainapp:cart')
 
 
 
